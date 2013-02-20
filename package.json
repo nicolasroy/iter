@@ -1,0 +1,23 @@
+{
+  "name": "iter",
+  "version": "0.0.0",
+  "description": "iter given function asynchronously",
+  "main": "index.js",
+  "scripts": {
+    "test": "highkick"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:azer/iter.git"
+  },
+  "devDependencies": {
+    "highkick": "*"
+  },
+  "keywords": [
+    "iteration",
+    "loops",
+    "serial",
+    "async"
+  ],
+  "license": "BSD"
+}

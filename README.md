@@ -9,7 +9,7 @@ npm install iter
 ## Usage
 
 ```js
-iter(20, /* or: iter(0, 20, .. */ function(next, i){
+iter(20, function(next, i){ /* or: iter(0, 20, .. */
   console.log('i: %d', i);
 
   setTimeout(function(){
@@ -20,7 +20,7 @@ iter(20, /* or: iter(0, 20, .. */ function(next, i){
 
 Callbacks;
 
-```
+```js
 iter(20)
   .error(function(error){ throw error; })
   .done(function(){ console.log('done'); })

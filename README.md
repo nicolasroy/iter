@@ -11,16 +11,13 @@ npm install iter
 ```js
 iter(20, function(next, i){ /* or: iter(0, 20, .. */
   console.log('i: %d', i);
-
-  setTimeout(function(){
-    next();
-  }, 250);
+  next();
 });
 ```
 
 Callbacks;
 
-```
+```js
 iter(20)
   .error(function(error){ throw error; })
   .done(function(){ console.log('done'); })

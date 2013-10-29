@@ -1,4 +1,4 @@
-Iterates a function asynchronously.
+Serial & Parallel Iteration
 
 ## Install
 

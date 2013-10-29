@@ -1,7 +1,7 @@
 {
   "name": "iter",
   "version": "0.0.4",
-  "description": "iter given function asynchronously",
+  "description": "Serial & Parallel Iteration",
   "main": "index.js",
   "scripts": {
     "test": "highkick"
@@ -11,7 +11,7 @@
     "url": "git@github.com:azer/iter.git"
   },
   "devDependencies": {
-    "highkick": "*"
+    "fox": "*"
   },
   "keywords": [
     "iteration",
@@ -19,5 +19,8 @@
     "serial",
     "async"
   ],
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "just-next-tick": "0.0.0"
+  }
 }

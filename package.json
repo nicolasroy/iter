@@ -1,6 +1,6 @@
 {
   "name": "iter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "iter given function asynchronously",
   "main": "index.js",
   "scripts": {

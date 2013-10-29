@@ -1,52 +1,54 @@
-module.exports = serial;
+var serial = require('./lib/serial');
+var parallel = require('./lib/parallel');
 
-function serial(/* [from,] to, [fn], [onComplete] */){
+module.exports = withChain(serial);
+module.exports.parallel = withChain(parallel);
 
-  var args  = Array.prototype.slice.call(arguments),
-      from  = args.length > 2 ? args[0] : 0,
-      to    = args.length > 2 ? args[1] : args[0],
-      fn    = args.length > 2 ? args[2] : args[1],
-      chain = { run: setFn, fn: setFn, error: onErrorCb, complete: onCompleteCb, done: onCompleteCb },
+function withChain (start) {
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        from = args.length > 2 ? args[0] : 0,
+        to = args.length > 2 ? args[1] : args[0],
+        onStep = args.length > 2 ? args[2] : args[1],
+        onComplete, onError;
 
-      onComplete, onError;
+    var chain = {
+      run: onStepCb,
+      step: onStepCb,
+      error: onErrorCb,
+      complete: onCompleteCb,
+      done: onCompleteCb
+    };
 
-  setTimeout(loop, 0, from, undefined);
+    start(from, to, chain);
 
-  return chain;
+    return chain;
 
-  function loop(i){
-
-    if( i >= to ){
-      onComplete && onComplete();
-      return;
-    }
-
-    fn(function(error){
-
-      if(error){
-        onError && onError(error);
-        return;
+    function onErrorCb(cb){
+      if (arguments.length) {
+        onError = cb;
+        return chain;
       }
 
-      loop(i+1);
+      return onError;
+    }
 
-    }, i);
+    function onCompleteCb(cb){
+      if (arguments.length) {
+        onComplete = cb;
+        return chain;
+      }
 
+      return onComplete;
+    }
+
+    function onStepCb(cb){
+      if (arguments.length) {
+        onStep = cb;
+        return chain;
+      }
+
+      return onStep;
+    }
   };
-
-  function onErrorCb(cb){
-    onError = cb;
-    return chain;
-  }
-
-  function onCompleteCb(cb){
-    onComplete = cb;
-    return chain;
-  }
-
-  function setFn(newFn){
-    fn = newFn;
-    return chain;
-  }
-
 }

@@ -38,7 +38,24 @@ it('stops when an error is passed', function(done){
 });
 
 describe('parallel', function(){
-  it('iterates parallelly', function(done){
+
+  it('runs paralelly', function(done){
+    var ctr = 0;
+
+    iter.parallel(10)
+      .run(function (done, i) {
+        expect(i).to.equal(ctr++);
+        setTimeout(function () {
+          done();
+        }, 10);
+      })
+      .done(function () {
+        expect(ctr).to.equal(10);
+        done();
+      });
+  });
+
+  it('still runs in order', function(done){
     var coll = [];
 
     iter.parallel(5)

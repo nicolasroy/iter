@@ -1,6 +1,6 @@
 {
   "name": "iter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Serial & Parallel Iteration",
   "main": "index.js",
   "scripts": {

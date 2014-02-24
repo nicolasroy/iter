@@ -11,7 +11,6 @@ it('iterates a fn between given range', function(done){
     expect(t).to.equal(8);
     done();
   });
-
 });
 
 it('stops when an error is passed', function(done){
@@ -35,6 +34,21 @@ it('stops when an error is passed', function(done){
     expect(errRef).to.equal(err);
     done();
   });
+});
+
+it('should work with sync functions as well', function(done){
+  var ctr = 0;
+
+  iter(10)
+    .run(function (done, i) {
+      expect(i).to.equal(ctr++);
+      if (i % 2 == 0) return done();
+      setTimeout(done, 50, undefined);
+    })
+    .done(function () {
+      expect(ctr).to.equal(10);
+      done();
+    });
 });
 
 describe('parallel', function(){
@@ -70,4 +84,34 @@ describe('parallel', function(){
         done();
       });
   });
+
+  it('may not actually be async', function(done){
+    var ctr = 0;
+
+    iter.parallel(10)
+      .run(function (done, i) {
+        expect(i).to.equal(ctr++);
+        if (i % 2 == 0) return done();
+        setTimeout(done, 50, undefined);
+      })
+      .done(function () {
+        expect(ctr).to.equal(10);
+        done();
+      });
+  });
+
+  it('keeps running on errors', function(done){
+    var ctr = 0;
+
+    iter.parallel(5)
+      .run(function (done, i) { return done(i % 2 == 0 ? new Error('failed-' + i) : undefined); })
+      .error(function (error, i) {
+        expect(i).to.equal(ctr * 2);
+        ctr++;
+      })
+      .done(function () {
+        done();
+      });
+  });
+
 });

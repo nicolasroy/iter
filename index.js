@@ -15,6 +15,7 @@ function withChain (start) {
     var chain = {
       run: onStepCb,
       step: onStepCb,
+      each: onStepCb,
       error: onErrorCb,
       complete: onCompleteCb,
       done: onCompleteCb

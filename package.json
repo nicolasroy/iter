@@ -21,6 +21,6 @@
   ],
   "license": "BSD",
   "dependencies": {
-    "just-next-tick": "0.0.0"
+    "just-next-tick": "azer/just-next-tick"
   }
 }
